@@ -1,0 +1,28 @@
+{
+  "name": "dadjokes",
+  "version": "0.0.1",
+  "description": "get /r/dadjokes frontpage in your terminal",
+  "author": "gillchristian <gillchristiang@gmail.com>",
+  "keyworkds": [
+    "reddit",
+    "subreddit",
+    "/r/dadjokes",
+    "dadjokes",
+    "front-page",
+    "cli"
+  ],
+  "bin": "bin/dadjokes",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gillchristian/dadjokes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gillchristian/dadjokes/issues"
+  },
+  "homepage": "https://github.com/gillchristian/dadjokes#readme",
+  "dependencies": {
+    "ora": "^1.3.0",
+    "trae": "^1.4.2"
+  }
+}
