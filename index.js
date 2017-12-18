@@ -1,8 +1,10 @@
 const trae = require('trae')
 const ora = require('ora')
+const chalk = require('chalk')
 
 const { traverseP, map, join, head, tail } = require('./utils')
 
+// -----
 
 trae.defaults({ baseUrl: 'https://www.reddit.com' })
 
@@ -10,7 +12,7 @@ main()
 
 function main() {
 
-  const spinner = ora('Fetching /r/dadjokes front-page ...')
+  const spinner = ora(chalk.bold.yellow('Fetching /r/dadjokes front-page ...'))
 
   console.log()
   spinner.start()
@@ -27,18 +29,18 @@ function main() {
     .then(map(formatJoke))
     .then(join('\n'))
     .then(jokes => {
-      spinner.succeed('Here is /r/dadjokes front-page:')
+      spinner.succeed(chalk.bold.yellow('Here is /r/dadjokes front-page:'))
       console.log()
       console.log(jokes)
     })
     .catch(e => {
-      spinner.fail('There was an error:')
+      spinner.fail(chalk.bold.red('There was an error:'))
       console.error(e)
     })
 }
 
 function formatJoke(child) {
-  let joke = ' ' + child.title + '\n'
+  let joke = ' ' + chalk.bold.white(child.title) + '\n'
 
   if (child.selftext) {
     joke += '\n'
@@ -47,9 +49,9 @@ function formatJoke(child) {
     const firstLine = head(lines)
     const rest = tail(lines).map(line => '   ' + line).join('\n')
 
-    joke += ' - ' +  firstLine
+    joke += chalk.bold.green('   ' +  firstLine)
     if (rest) {
-      joke += rest
+      joke += chalk.bold.green(rest)
     }
   }
 
