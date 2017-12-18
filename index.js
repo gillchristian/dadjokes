@@ -8,19 +8,19 @@ const { traverseP, map, join, head, tail } = require('./utils')
 
 trae.defaults({ baseUrl: 'https://www.reddit.com' })
 
-module.exports = { 
+module.exports = {
   main,
   formatJoke,
 }
 
 function main() {
-
   const spinner = ora(chalk.bold.yellow('Fetching /r/dadjokes front-page ...'))
 
   console.log()
   spinner.start()
 
-  trae.get('/r/dadjokes.json')
+  trae
+    .get('/r/dadjokes.json')
     .then(r => r.data.data)
     .then(d => d.children)
     .then(map(child => child.data.permalink))
@@ -48,11 +48,13 @@ function formatJoke(child) {
   if (child.selftext) {
     joke += '\n'
 
-    const lines = child.selftext.split('\n') 
+    const lines = child.selftext.split('\n')
     const firstLine = head(lines)
-    const rest = tail(lines).map(line => '   ' + line).join('\n')
+    const rest = tail(lines)
+      .map(line => '   ' + line)
+      .join('\n')
 
-    joke += chalk.bold.green('   ' +  firstLine)
+    joke += chalk.bold.green('   ' + firstLine)
     if (rest) {
       joke += chalk.bold.green(rest)
     }

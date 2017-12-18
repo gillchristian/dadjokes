@@ -18,5 +18,5 @@ module.exports = {
   map,
   join,
   head,
-  tail
+  tail,
 }

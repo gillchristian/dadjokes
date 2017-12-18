@@ -23,6 +23,7 @@
   "homepage": "https://github.com/gillchristian/dadjokes#readme",
   "scripts": {
     "release": "np",
+    "format": "prettier --write '**/*.js' 'bin/dadjokes'",
     "test": "echo 'no tests for now, you should add them!' ; exit 0"
   },
   "dependencies": {
@@ -31,6 +32,7 @@
     "trae": "^1.4.2"
   },
   "devDependencies": {
-    "np": "^2.18.3"
+    "np": "^2.18.3",
+    "prettier": "^1.9.2"
   }
 }
