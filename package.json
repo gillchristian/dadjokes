@@ -1,7 +1,7 @@
 {
   "name": "dadjokes",
   "version": "0.0.2",
-  "description": "get /r/dadjokes frontpage in your terminal",
+  "description": "get /r/dadjokes front-page in your terminal",
   "author": "gillchristian <gillchristiang@gmail.com>",
   "keyworkds": [
     "reddit",

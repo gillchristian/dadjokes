@@ -8,7 +8,10 @@ const { traverseP, map, join, head, tail } = require('./utils')
 
 trae.defaults({ baseUrl: 'https://www.reddit.com' })
 
-main()
+module.exports = { 
+  main,
+  formatJoke,
+}
 
 function main() {
 

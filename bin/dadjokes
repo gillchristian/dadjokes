@@ -1,3 +1,23 @@
 #!/usr/bin/env node
+'use strict';
 
-require('../')
+const meow = require('meow')
+
+const { main } = require('../')
+
+const cli = meow(`
+	Usage
+	  $ dadjokes
+
+	Options
+	  --help, -h     Show help
+	  --version, -v  Show version
+`)
+
+if (cli.flags.h) {
+  cli.showHelp()
+} else if (cli.flags.v) {
+  cli.showVersion()
+} else {
+  main()
+}
