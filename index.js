@@ -37,8 +37,10 @@ function main() {
       console.log(jokes)
     })
     .catch(e => {
-      spinner.fail(chalk.bold.red('There was an error:'))
-      console.error(e)
+      spinner.fail(chalk.bold.red('Ups, there was an error:'))
+
+      console.log()
+      console.error(e.message[0].toUpperCase() + e.message.slice(1))
     })
 }
 

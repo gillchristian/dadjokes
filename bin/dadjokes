@@ -5,19 +5,28 @@ const meow = require('meow')
 
 const { main } = require('../')
 
-const cli = meow(`
+const template = `
 	Usage
 	  $ dadjokes
 
 	Options
 	  --help, -h     Show help
 	  --version, -v  Show version
-`)
+`
 
-if (cli.flags.h) {
-  cli.showHelp()
-} else if (cli.flags.v) {
-  cli.showVersion()
-} else {
-  main()
+const options = {
+  flags: {
+    help: {
+      type: 'boolean',
+      alias: 'h',
+    },
+    version: {
+      type: 'boolean',
+      alias: 'v',
+    },
+  },
 }
+
+meow(template, options)
+
+main()
