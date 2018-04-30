@@ -12,6 +12,8 @@ const template = `
 	Options
 	  --help, -h     Show help
 	  --version, -v  Show version
+	  --3am          Fetch front page of /r/3amjokes instead
+	  --dota2        Fetch front page of /r/dota2dadjokes instead
 `
 
 const options = {
@@ -24,9 +26,19 @@ const options = {
       type: 'boolean',
       alias: 'v',
     },
+    '3am': {
+      type: 'boolean',
+    },
+    dota2: {
+      type: 'boolean',
+    },
+    dadjokes: {
+      type: 'boolean',
+      default: true,
+    },
   },
 }
 
-meow(template, options)
+const m = meow(template, options)
 
-main()
+main({ flags: m.flags })

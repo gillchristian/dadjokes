@@ -2,7 +2,17 @@ const trae = require('trae')
 const ora = require('ora')
 const chalk = require('chalk')
 
-const { traverseP, map, join, head, tail } = require('./utils')
+const {
+  composeN,
+  traverseP,
+  map,
+  filter,
+  join,
+  head,
+  tail,
+  omit,
+  Pair,
+} = require('./utils')
 
 // -----
 
@@ -13,14 +23,36 @@ module.exports = {
   formatJoke,
 }
 
-function main() {
-  const spinner = ora(chalk.bold.yellow('Fetching /r/dadjokes front-page ...'))
+// -----
+
+// omitExtraOptions :: { [String]: a } -> { [String]: a }
+const omitExtraOptions = omit(['help', 'h', 'version', 'v'])
+
+// flagMap :: [Pair]
+const flagMap = [
+  ['3am', '/r/3amjokes'],
+  ['dota2', '/r/dota2dadjokes'],
+  ['dadjokes', '/r/dadjokes'],
+]
+
+function main({ flags }) {
+  const subreddits = omitExtraOptions(flags)
+
+  // hasFlag :: Pair -> Bool
+  const hasFlag = pair => subreddits[Pair.fst(pair)]
+
+  // getSubreddit :: [Pair] -> String
+  const getSubreddit = composeN(Pair.snd, head, filter(hasFlag))
+
+  const subreddit = getSubreddit(flagMap)
+
+  const spinner = ora(chalk.bold.yellow(`Fetching ${subreddit} front-page ...`))
 
   console.log()
   spinner.start()
 
   trae
-    .get('/r/dadjokes.json')
+    .get(`${subreddit}.json`)
     .then(r => r.data.data)
     .then(d => d.children)
     .then(map(child => child.data.permalink))
@@ -32,7 +64,7 @@ function main() {
     .then(map(formatJoke))
     .then(join('\n'))
     .then(jokes => {
-      spinner.succeed(chalk.bold.yellow('Here is /r/dadjokes front-page:'))
+      spinner.succeed(chalk.bold.yellow(`Here is ${subreddit} front-page:`))
       console.log()
       console.log(jokes)
     })
